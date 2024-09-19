@@ -155,6 +155,137 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/19/StudyNote-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="赵冉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="赵冉的神奇小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/19/StudyNote-2/" class="post-title-link" itemprop="url">StudyNote-2</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-09-19 22:19:27 / 修改时间：22:49:47" itemprop="dateCreated datePublished" datetime="2024-09-19T22:19:27+08:00">2024-09-19</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>501</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="408"><a href="#408" class="headerlink" title="408"></a>408</h1><h2 id="数据结构-7-查找"><a href="#数据结构-7-查找" class="headerlink" title="数据结构 7 查找"></a>数据结构 7 查找</h2><h3 id="查找的基本概念"><a href="#查找的基本概念" class="headerlink" title="查找的基本概念"></a>查找的基本概念</h3><ol>
+<li><p><strong>查找表</strong> 用于查找的数据集合，静态为不删减，动态增加删除</p>
+</li>
+<li><p><strong>平均查找长度ASL</strong> 需要比较的平均次数</p>
+</li>
+</ol>
+<h3 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h3><p>顺序表，链表都适用，正常查找 o(n)</p>
+<p><strong>优化</strong> 有序，减少失败ASL；将概率大的数据放前面</p>
+<h3 id="折半查找"><a href="#折半查找" class="headerlink" title="折半查找"></a>折半查找</h3><p>二分查找 o(log2 n)</p>
+<ol>
+<li><p><strong>失败条件</strong> L指针大于H</p>
+</li>
+<li><p><strong>判定树</strong> 平衡树，向上向下取整决定左右子树的大小关系</p>
+<p>折半查找次数不超过树高，适合有序顺序存储</p>
+</li>
+</ol>
+<h3 id="分块查找"><a href="#分块查找" class="headerlink" title="分块查找"></a>分块查找</h3><p>块内无序，块间有序</p>
+<ol>
+<li><p>ASL&#x3D;索引ASL+块内ASL</p>
+</li>
+<li><p>最小ASL，块数平方为字数</p>
+</li>
+</ol>
+<h3 id="二叉排序树BST"><a href="#二叉排序树BST" class="headerlink" title="二叉排序树BST"></a>二叉排序树BST</h3><p>左&lt;中&lt;右，中序遍历为顺序数列，可以是<strong>空</strong>，最差o(n)，最好o(log2 n)，适合动态查找</p>
+<ol>
+<li><p><strong>插入</strong> 插入访问失败最后节点的孩子，不可相同</p>
+</li>
+<li><p><strong>删除</strong> 叶节点直接删除；只有一颗子树直接添加；两颗子树找前驱或后继</p>
+</li>
+</ol>
+<h3 id="！平衡二叉树AVL"><a href="#！平衡二叉树AVL" class="headerlink" title="！平衡二叉树AVL"></a>！平衡二叉树AVL</h3><p>左右高度差不超过1，查找o(log2 n)</p>
+<h4 id="AVL插入"><a href="#AVL插入" class="headerlink" title="AVL插入"></a>AVL插入</h4><p>根据插入点后最小不平衡树</p>
+<ol>
+<li><p><strong>LL</strong> 右旋转</p>
+</li>
+<li><p><strong>RR</strong> 左旋转</p>
+</li>
+<li><p><strong>LR</strong> 左右</p>
+</li>
+<li><p><strong>RL</strong> 右左</p>
+</li>
+</ol>
+<p>根据情况将子树迁移</p>
+<p>构造时按照插入处理</p>
+<p><strong>AVL删除</strong></p>
+<p>删除操作先按照BST处理，再按照插入处理，再继续检查是否传递不平衡</p>
+<h3 id="红黑树RBT"><a href="#红黑树RBT" class="headerlink" title="红黑树RBT"></a>红黑树RBT</h3><p>左中右，根叶黒，无二红，黑数同，查找o(log2 n)</p>
+<p>引入了NULL作为叶子，黒</p>
+<p>L最大不超过L最小的二倍</p>
+<p><strong>RBT插入</strong></p>
+<p>只需要关注插入节点的叔节点</p>
+<ol>
+<li><p><strong>叔节点黒</strong> 根据AVL插入处理，一次的父爷变换，两次的爷孙变换</p>
+</li>
+<li><p><strong>叔节点红</strong> 爷父叔变换，爷作为新节点检查</p>
+</li>
+</ol>
+<p><strong>RBT删除</strong></p>
+<p>查找o(log2 n)，先按照BST处理，再进行变换</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/18/StudyNote-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -403,7 +534,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -454,12 +585,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">0k</span>
+    <span title="站点总字数">1k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1 分钟</span>
+    <span title="站点阅读时长">3 分钟</span>
 </div>
 
 
