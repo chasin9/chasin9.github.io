@@ -155,6 +155,186 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/28/StudyNote-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="赵冉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="赵冉的神奇小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/28/StudyNote-4/" class="post-title-link" itemprop="url">StudyNote-4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-28 22:29:20" itemprop="dateCreated datePublished" datetime="2024-09-28T22:29:20+08:00">2024-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-29 00:09:11" itemprop="dateModified" datetime="2024-09-29T00:09:11+08:00">2024-09-29</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="408-操作系统"><a href="#408-操作系统" class="headerlink" title="408-操作系统"></a>408-操作系统</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="操作系统特征"><a href="#操作系统特征" class="headerlink" title="操作系统特征"></a>操作系统特征</h3><ol>
+<li><p><strong>并发</strong>：同一时间片段，并非<strong>并行</strong></p>
+</li>
+<li><p><strong>共享</strong>：共享同一硬件资源，<strong>互斥</strong>指资源不可并发，<strong>同时</strong>可以并发</p>
+</li>
+<li><p><strong>虚拟</strong>：将物理资源虚拟为多个虚拟资源</p>
+</li>
+<li><p><strong>异步</strong>：进程走走停停</p>
+</li>
+</ol>
+<p><strong>并发</strong>和<strong>共享</strong>互相依存，虚拟和异步依赖并发</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>处理器管理，存储器管理，文件管理，IO管理</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><h4 id="命令接口"><a href="#命令接口" class="headerlink" title="命令接口"></a>命令接口</h4><ol>
+<li><p>联机命令接口：交互</p>
+</li>
+<li><p>脱机命令接口：bat，批处理</p>
+</li>
+</ol>
+<h4 id="程序接口"><a href="#程序接口" class="headerlink" title="程序接口"></a>程序接口</h4><p>程序使用，即<strong>系统调用</strong></p>
+<h3 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h3><h4 id="手工"><a href="#手工" class="headerlink" title="手工"></a>手工</h4><p>单用户独占，手工操作</p>
+<h4 id="单道批处理"><a href="#单道批处理" class="headerlink" title="单道批处理"></a>单道批处理</h4><p>一批次作业输入磁带，依次进入内存，IO更快</p>
+<h4 id="多道批处理"><a href="#多道批处理" class="headerlink" title="多道批处理"></a>多道批处理</h4><p>作业在外存排成队列，相互穿插运行，宏观并行，通过中断实现，没有人机交互</p>
+<h4 id="分时操作系统"><a href="#分时操作系统" class="headerlink" title="分时操作系统"></a>分时操作系统</h4><p>短时间轮流多用户，交互</p>
+<h4 id="实时操作系统"><a href="#实时操作系统" class="headerlink" title="实时操作系统"></a>实时操作系统</h4><p>紧急任务处理，<strong>硬实时</strong>不可出错</p>
+<h4 id="网络和分布式"><a href="#网络和分布式" class="headerlink" title="网络和分布式"></a>网络和分布式</h4><p>网络：资源共享和通信</p>
+<p>分布：分布和并行</p>
+<p>分布式需要多个计算机相互协同</p>
+<h3 id="运行模式"><a href="#运行模式" class="headerlink" title="运行模式"></a>运行模式</h3><h4 id="特权指令和非特权"><a href="#特权指令和非特权" class="headerlink" title="特权指令和非特权"></a>特权指令和非特权</h4><p><strong>特权指令</strong>必须在<strong>核心态</strong>运行，非特权指令均可</p>
+<h4 id="特权指令的类别"><a href="#特权指令的类别" class="headerlink" title="特权指令的类别"></a>特权指令的类别</h4><p>时钟管理，中断机制，原语，系统控制的数据结构和处理(系统调用)</p>
+<h3 id="中断和异常"><a href="#中断和异常" class="headerlink" title="中断和异常"></a>中断和异常</h3><h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p><strong>外中断</strong>，来自外部，包括时钟，IO等，每个时间段结束后检测</p>
+<p>分为可屏蔽中断INTR，不可屏蔽NMI</p>
+<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4><p><strong>内中断</strong>，来自内部，当前执行，不能被屏蔽</p>
+<p>分为陷入(事先安排，包括特权指令)，故障(指令引起，可修复)，终止(无法继续的硬件故障)</p>
+<p>中断和终止属于硬件中断</p>
+<h4 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h4><p>中断和子程序都要保存PC，中断要保存PSW，中断的保存硬件实现</p>
+<p>硬件找到中断号</p>
+<p>程序执行保存中断执行字，寄存器</p>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>一些子功能，特殊的公共子程序，运行在内核态</p>
+<p>过程:</p>
+<ol>
+<li><p>压入参数，执行陷入，转为内核态</p>
+</li>
+<li><p>分析调用类型，进入子程序入口</p>
+</li>
+<li><p>执行完恢复现场</p>
+</li>
+</ol>
+<h3 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h3><ol>
+<li><p><strong>分层式</strong>：一层层，便于调试，易于扩展，分层定义困难，效率低</p>
+</li>
+<li><p><strong>模块化</strong>：各模块可以通信，可扩展，可适应性好，比较混乱</p>
+</li>
+<li><p><strong>宏内核</strong>：常见模块+系统调用</p>
+</li>
+<li><p><strong>微内核</strong>：只保留基本功能(进程管理，低级存储器管理，中断和陷入处理)，客户服务器模式，功能服务器在用户态实现，<strong>机制与策略分离</strong>，扩展性，可靠安全，分布式，性能低下</p>
+</li>
+<li><p><strong>外核</strong>：内核态运行，为虚拟机直接分配资源，少了抽象层</p>
+</li>
+</ol>
+<h3 id="系统引导"><a href="#系统引导" class="headerlink" title="系统引导"></a>系统引导</h3><p>顺序</p>
+<ol>
+<li><p>激活CPU：读取ROM中的BOOT，开始BIOS</p>
+</li>
+<li><p>硬件自检：创建<strong>中断向量表</strong>，检查硬件</p>
+</li>
+<li><p>加载系统硬盘：BIOS读取CMOS中的顺序，到第一块硬盘</p>
+</li>
+<li><p>MBR：主引导程序，区分引导盘，包含硬盘分区表</p>
+</li>
+<li><p>硬盘分区表：找到引导分区位置</p>
+</li>
+<li><p>PBR：寻找分区下的启动程序</p>
+</li>
+<li><p>加载启动管理器</p>
+</li>
+<li><p>加载系统</p>
+</li>
+</ol>
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><h4 id="第一类虚拟机管理程序"><a href="#第一类虚拟机管理程序" class="headerlink" title="第一类虚拟机管理程序"></a>第一类虚拟机管理程序</h4><p>运行在内核态，向上提供</p>
+<p>支持虚拟化CPU：内核态指令，系统的有程序分配执行，程序的模拟执行</p>
+<p>不支持虚拟化：全部模拟</p>
+<h4 id="第二类虚拟机管理程序"><a href="#第二类虚拟机管理程序" class="headerlink" title="第二类虚拟机管理程序"></a>第二类虚拟机管理程序</h4><p>在宿主系统上的软件</p>
+<h1 id="数学-高数"><a href="#数学-高数" class="headerlink" title="数学-高数"></a>数学-高数</h1><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
+<li><p>函数要求<strong>定义域</strong>和<strong>对应法则</strong></p>
+</li>
+<li><p>复合函数：值域和定义域有交集</p>
+</li>
+<li><p>反函数：存在唯一对应</p>
+</li>
+<li><p>初等函数：有限次四则运算和复合，<strong>一个式子</strong>表示</p>
+</li>
+<li><p>单调性：导数增-&gt;单调增 <strong>反向不成立</strong></p>
+</li>
+<li><p>奇偶性：连续奇函数的原函数必然偶函数，连续偶函数的原函数只有一个奇函数</p>
+</li>
+<li><p>原函数：一个函数的0a变上限积分是原函数</p>
+</li>
+<li><p>周期性：可导周期函数导数为周期函数，周期函数原函数周期的要求是周期积为0</p>
+</li>
+<li><p>有界性：闭区间连续-&gt;有界；开区间连续，端点有极限-&gt;有界；导数有限区间有界-&gt;区间有界</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/25/StudyNote-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -674,7 +854,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -725,12 +905,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数">3k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6 分钟</span>
+    <span title="站点阅读时长">10 分钟</span>
 </div>
 
 

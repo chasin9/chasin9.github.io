@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="408-操作系统概述操作系统特征 并发：同一时间片段，并非并行  共享：共享同一硬件资源，互斥指资源不可并发，同时可以并发  虚拟：将物理资源虚拟为多个虚拟资源  异步：进程走走停停   并发和共享互相依存，虚拟和异步依赖并发 功能处理器管理，存储器管理，文件管理，IO管理 接口命令接口 联机命令接口：交互  脱机命令接口：bat，批处理   程序接口程序使用，即系统调用 发展历程手工单用户独占，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StudyNote-4">
+<meta property="og:url" content="http://example.com/2024/09/28/StudyNote-4/index.html">
+<meta property="og:site_name" content="赵冉的神奇小站">
+<meta property="og:description" content="408-操作系统概述操作系统特征 并发：同一时间片段，并非并行  共享：共享同一硬件资源，互斥指资源不可并发，同时可以并发  虚拟：将物理资源虚拟为多个虚拟资源  异步：进程走走停停   并发和共享互相依存，虚拟和异步依赖并发 功能处理器管理，存储器管理，文件管理，IO管理 接口命令接口 联机命令接口：交互  脱机命令接口：bat，批处理   程序接口程序使用，即系统调用 发展历程手工单用户独占，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-28T14:29:20.000Z">
+<meta property="article:modified_time" content="2024-09-28T16:09:11.634Z">
+<meta property="article:author" content="赵冉">
+<meta property="article:tag" content="考研日记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/09/28/StudyNote-4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>StudyNote-4 | 赵冉的神奇小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">赵冉的神奇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/28/StudyNote-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="赵冉">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="赵冉的神奇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          StudyNote-4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-28 22:29:20" itemprop="dateCreated datePublished" datetime="2024-09-28T22:29:20+08:00">2024-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-09-29 00:09:11" itemprop="dateModified" datetime="2024-09-29T00:09:11+08:00">2024-09-29</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="408-操作系统"><a href="#408-操作系统" class="headerlink" title="408-操作系统"></a>408-操作系统</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="操作系统特征"><a href="#操作系统特征" class="headerlink" title="操作系统特征"></a>操作系统特征</h3><ol>
+<li><p><strong>并发</strong>：同一时间片段，并非<strong>并行</strong></p>
+</li>
+<li><p><strong>共享</strong>：共享同一硬件资源，<strong>互斥</strong>指资源不可并发，<strong>同时</strong>可以并发</p>
+</li>
+<li><p><strong>虚拟</strong>：将物理资源虚拟为多个虚拟资源</p>
+</li>
+<li><p><strong>异步</strong>：进程走走停停</p>
+</li>
+</ol>
+<p><strong>并发</strong>和<strong>共享</strong>互相依存，虚拟和异步依赖并发</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>处理器管理，存储器管理，文件管理，IO管理</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><h4 id="命令接口"><a href="#命令接口" class="headerlink" title="命令接口"></a>命令接口</h4><ol>
+<li><p>联机命令接口：交互</p>
+</li>
+<li><p>脱机命令接口：bat，批处理</p>
+</li>
+</ol>
+<h4 id="程序接口"><a href="#程序接口" class="headerlink" title="程序接口"></a>程序接口</h4><p>程序使用，即<strong>系统调用</strong></p>
+<h3 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h3><h4 id="手工"><a href="#手工" class="headerlink" title="手工"></a>手工</h4><p>单用户独占，手工操作</p>
+<h4 id="单道批处理"><a href="#单道批处理" class="headerlink" title="单道批处理"></a>单道批处理</h4><p>一批次作业输入磁带，依次进入内存，IO更快</p>
+<h4 id="多道批处理"><a href="#多道批处理" class="headerlink" title="多道批处理"></a>多道批处理</h4><p>作业在外存排成队列，相互穿插运行，宏观并行，通过中断实现，没有人机交互</p>
+<h4 id="分时操作系统"><a href="#分时操作系统" class="headerlink" title="分时操作系统"></a>分时操作系统</h4><p>短时间轮流多用户，交互</p>
+<h4 id="实时操作系统"><a href="#实时操作系统" class="headerlink" title="实时操作系统"></a>实时操作系统</h4><p>紧急任务处理，<strong>硬实时</strong>不可出错</p>
+<h4 id="网络和分布式"><a href="#网络和分布式" class="headerlink" title="网络和分布式"></a>网络和分布式</h4><p>网络：资源共享和通信</p>
+<p>分布：分布和并行</p>
+<p>分布式需要多个计算机相互协同</p>
+<h3 id="运行模式"><a href="#运行模式" class="headerlink" title="运行模式"></a>运行模式</h3><h4 id="特权指令和非特权"><a href="#特权指令和非特权" class="headerlink" title="特权指令和非特权"></a>特权指令和非特权</h4><p><strong>特权指令</strong>必须在<strong>核心态</strong>运行，非特权指令均可</p>
+<h4 id="特权指令的类别"><a href="#特权指令的类别" class="headerlink" title="特权指令的类别"></a>特权指令的类别</h4><p>时钟管理，中断机制，原语，系统控制的数据结构和处理(系统调用)</p>
+<h3 id="中断和异常"><a href="#中断和异常" class="headerlink" title="中断和异常"></a>中断和异常</h3><h4 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h4><p><strong>外中断</strong>，来自外部，包括时钟，IO等，每个时间段结束后检测</p>
+<p>分为可屏蔽中断INTR，不可屏蔽NMI</p>
+<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4><p><strong>内中断</strong>，来自内部，当前执行，不能被屏蔽</p>
+<p>分为陷入(事先安排，包括特权指令)，故障(指令引起，可修复)，终止(无法继续的硬件故障)</p>
+<p>中断和终止属于硬件中断</p>
+<h4 id="TIPS"><a href="#TIPS" class="headerlink" title="TIPS"></a>TIPS</h4><p>中断和子程序都要保存PC，中断要保存PSW，中断的保存硬件实现</p>
+<p>硬件找到中断号</p>
+<p>程序执行保存中断执行字，寄存器</p>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p>一些子功能，特殊的公共子程序，运行在内核态</p>
+<p>过程:</p>
+<ol>
+<li><p>压入参数，执行陷入，转为内核态</p>
+</li>
+<li><p>分析调用类型，进入子程序入口</p>
+</li>
+<li><p>执行完恢复现场</p>
+</li>
+</ol>
+<h3 id="系统结构"><a href="#系统结构" class="headerlink" title="系统结构"></a>系统结构</h3><ol>
+<li><p><strong>分层式</strong>：一层层，便于调试，易于扩展，分层定义困难，效率低</p>
+</li>
+<li><p><strong>模块化</strong>：各模块可以通信，可扩展，可适应性好，比较混乱</p>
+</li>
+<li><p><strong>宏内核</strong>：常见模块+系统调用</p>
+</li>
+<li><p><strong>微内核</strong>：只保留基本功能(进程管理，低级存储器管理，中断和陷入处理)，客户服务器模式，功能服务器在用户态实现，<strong>机制与策略分离</strong>，扩展性，可靠安全，分布式，性能低下</p>
+</li>
+<li><p><strong>外核</strong>：内核态运行，为虚拟机直接分配资源，少了抽象层</p>
+</li>
+</ol>
+<h3 id="系统引导"><a href="#系统引导" class="headerlink" title="系统引导"></a>系统引导</h3><p>顺序</p>
+<ol>
+<li><p>激活CPU：读取ROM中的BOOT，开始BIOS</p>
+</li>
+<li><p>硬件自检：创建<strong>中断向量表</strong>，检查硬件</p>
+</li>
+<li><p>加载系统硬盘：BIOS读取CMOS中的顺序，到第一块硬盘</p>
+</li>
+<li><p>MBR：主引导程序，区分引导盘，包含硬盘分区表</p>
+</li>
+<li><p>硬盘分区表：找到引导分区位置</p>
+</li>
+<li><p>PBR：寻找分区下的启动程序</p>
+</li>
+<li><p>加载启动管理器</p>
+</li>
+<li><p>加载系统</p>
+</li>
+</ol>
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><h4 id="第一类虚拟机管理程序"><a href="#第一类虚拟机管理程序" class="headerlink" title="第一类虚拟机管理程序"></a>第一类虚拟机管理程序</h4><p>运行在内核态，向上提供</p>
+<p>支持虚拟化CPU：内核态指令，系统的有程序分配执行，程序的模拟执行</p>
+<p>不支持虚拟化：全部模拟</p>
+<h4 id="第二类虚拟机管理程序"><a href="#第二类虚拟机管理程序" class="headerlink" title="第二类虚拟机管理程序"></a>第二类虚拟机管理程序</h4><p>在宿主系统上的软件</p>
+<h1 id="数学-高数"><a href="#数学-高数" class="headerlink" title="数学-高数"></a>数学-高数</h1><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
+<li><p>函数要求<strong>定义域</strong>和<strong>对应法则</strong></p>
+</li>
+<li><p>复合函数：值域和定义域有交集</p>
+</li>
+<li><p>反函数：存在唯一对应</p>
+</li>
+<li><p>初等函数：有限次四则运算和复合，<strong>一个式子</strong>表示</p>
+</li>
+<li><p>单调性：导数增-&gt;单调增 <strong>反向不成立</strong></p>
+</li>
+<li><p>奇偶性：连续奇函数的原函数必然偶函数，连续偶函数的原函数只有一个奇函数</p>
+</li>
+<li><p>原函数：一个函数的0a变上限积分是原函数</p>
+</li>
+<li><p>周期性：可导周期函数导数为周期函数，周期函数原函数周期的要求是周期积为0</p>
+</li>
+<li><p>有界性：闭区间连续-&gt;有界；开区间连续，端点有极限-&gt;有界；导数有限区间有界-&gt;区间有界</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%80%83%E7%A0%94%E6%97%A5%E8%AE%B0/" rel="tag"># 考研日记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/09/25/StudyNote-3/" rel="prev" title="StudyNote-3">
+      <i class="fa fa-chevron-left"></i> StudyNote-3
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#408-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">408-操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%89%B9%E5%BE%81"><span class="nav-number">1.1.1.</span> <span class="nav-text">操作系统特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.3.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">命令接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">程序接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B1%95%E5%8E%86%E7%A8%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">发展历程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">手工</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">单道批处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">多道批处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">分时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.4.5.</span> <span class="nav-text">实时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number">1.1.4.6.</span> <span class="nav-text">网络和分布式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.5.</span> <span class="nav-text">运行模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%9D%83%E6%8C%87%E4%BB%A4%E5%92%8C%E9%9D%9E%E7%89%B9%E6%9D%83"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">特权指令和非特权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%9D%83%E6%8C%87%E4%BB%A4%E7%9A%84%E7%B1%BB%E5%88%AB"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">特权指令的类别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">1.1.6.</span> <span class="nav-text">中断和异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">中断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TIPS"><span class="nav-number">1.1.6.3.</span> <span class="nav-text">TIPS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.1.7.</span> <span class="nav-text">系统调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.8.</span> <span class="nav-text">系统结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC"><span class="nav-number">1.1.9.</span> <span class="nav-text">系统引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.1.10.</span> <span class="nav-text">虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.10.1.</span> <span class="nav-text">第一类虚拟机管理程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.1.10.2.</span> <span class="nav-text">第二类虚拟机管理程序</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6-%E9%AB%98%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">数学-高数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">函数</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="赵冉"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">赵冉</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chasin9" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chasin9" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1789572537@qq.com" title="E-Mail → mailto:1789572537@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵冉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">3k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10 分钟</span>
+</div>
+
+
+
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span> 
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("9/17/2024 22:00:00"); 
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒.";
+    }
+setInterval("createtime()",250);
+</script>
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
